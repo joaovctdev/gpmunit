@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultado</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body.light-mode {
+            background-color: #f8f9fa;
+            color: #212529;
+        }
+
+        body.dark-mode {
+            background-color: #262626;
+        }
+
+        .card{
+            border-radius: 20px;
+            border: 1px solid black;
+        }
+
+        .positivo {
+            color: green;
+            font-weight: bold;
+        }
+
+        .negativo {
+            color: red;
+            font-weight: bold;
+        }
+
+        .btn-toggle-mode {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            background-color: #121212;
+            color: #fff;
+            border: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .btn-toggle-mode.dark-mode {
+            background-color: #fff;
+            color: #121212;
+        }
+    </style>
+</head>
+<body class="dark-mode">
+    <button class="btn btn-toggle-mode">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-moon" viewBox="0 0 16 16">
+            <path d="M6 .278a.77.77 0 0 1 .08.858 7.2 7.2 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277q.792-.001 1.533-.16a.79.79 0 0 1 .81.316.73.73 0 0 1-.031.893A8.35 8.35 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.75.75 0 0 1 6 .278M4.858 1.311A7.27 7.27 0 0 0 1.025 7.71c0 4.02 3.279 7.276 7.319 7.276a7.32 7.32 0 0 0 5.205-2.162q-.506.063-1.029.063c-4.61 0-8.343-3.714-8.343-8.29 0-1.167.242-2.278.681-3.286"/>
+        </svg>
+    </button>
+    <div class="container">
+        <div class="row justify-content-center mt-5">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h1 class="card-title text-center mb-4">Resultado</h1>
+                        <p class="card-text text-center">O seu patrimônio líquido é: R${{patrimonio}}<br>
+                         Seu patrimônio está 
+                         {% if res == 'positivo' %}
+                         <span class="positivo">POSITIVO</span>
+                        {% else %}
+                         <span class="negativo">NEGATIVO</span>
+                        {% endif %}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        document.querySelector('.btn-toggle-mode').addEventListener('click', function() {
+            document.body.classList.toggle('light-mode');
+            document.body.classList.toggle('dark-mode');
+            var btn = document.querySelector('.btn-toggle-mode');
+            if (document.body.classList.contains('dark-mode')) {
+                btn.classList.remove('btn-dark');
+                btn.classList.add('btn-light');
+            } else {
+                btn.classList.remove('btn-light');
+                btn.classList.add('btn-dark');
+            }
+        });
+    </script>
+</body>
+</html>
