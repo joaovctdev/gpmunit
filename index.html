@@ -73,15 +73,32 @@
     <div class="report-area" id="printArea">
         <div class="report-header">
             <h1 id="tituloRel">SISTEMA DE GESTÃO OPERACIONAL</h1>
-            <p>DATA: <span id="dataTxt">--/--/----</span></p>
+            <p>DATA: <span id="dataTxt">--/--/----</span> Hora: <span id="horaTxt">--:--</span></p>
         </div>
         <div class="report-body" id="renderArea">
             <p style="text-align:center; color:#999; margin-top:100px;">Carregue as planilhas para gerar os indicadores.</p>
         </div>
     </div>
 </div>
-
 <script>
+// --- NOVO: Função para atualizar o relógio em tempo real ---
+function atualizarRelogio() {
+    const agora = new Date();
+    const hora = String(agora.getHours()).padStart(2, '0');
+    const minuto = String(agora.getMinutes()).padStart(2, '0');
+    const segundo = String(agora.getSeconds()).padStart(2, '0');
+    const horaFormatada = `${hora}:${minuto}:${segundo}`;
+    
+    const elementoHora = document.getElementById('horaTxt');
+    if (elementoHora) {
+        elementoHora.innerText = horaFormatada;
+    }
+}
+// Inicia o relógio e atualiza a cada 1 segundo
+setInterval(atualizarRelogio, 1000);
+window.onload = atualizarRelogio; 
+// ---------------------------------------------------------
+
 const EQUIPES = [
     "ALAN-IRC", "ALEX-IRC", "EDILSON-IRC", "EDMILSON-IRC", "ELIEZER-IRC", "ENES-IRC", "ESMERALDO-IRC", 
     "FELIPE-IRC", "GABRIEL-IRC", "GIORLAN-IRC", "IRISMAR-IRC", "JAILSON-IRC", "JARBAS-IRC", "MARCOS-IRC", 
