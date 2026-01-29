@@ -3,54 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SISTEMA GESTÃO: GPM Mariuá</title>
+    <title>SISTEMA GESTÃO GPM MARIUÁ</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; background: #121212; padding: 20px; color: #333; }
-        .container { max-width: 1200px; margin: 0 auto; }
-        
-        /* Painel de Controle */
-        .admin-panel { background: #fff; padding: 25px; border-radius: 12px; margin-bottom: 20px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        .upload-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 25px; }
-        .file-box { position: relative; }
-        .file-label { background: #333; color: white; padding: 15px; border-radius: 8px; cursor: pointer; display: block; font-weight: bold; font-size: 12px; transition: 0.3s; border: 2px solid transparent; }
-        .file-label:hover { background: #555; border-color: #00b7ab; }
+        body { font-family: "Segoe UI", sans-serif; background: #1a1a1a; padding: 20px; color: #333; }
+        .container { max-width: 1100px; margin: 0 auto; }
+        .admin-panel { background: #fff; padding: 20px; border-radius: 12px; margin-bottom: 20px; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.4); }
+        .upload-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-bottom: 20px; }
+        .file-label { background: #444; color: white; padding: 12px; border-radius: 8px; cursor: pointer; display: block; font-weight: bold; font-size: 11px; }
         input[type="file"] { display: none; }
-        .status-txt { font-size: 11px; color: #888; margin-top: 8px; display: block; font-style: italic; }
-
-        /* Botões */
-        .btn-group { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; padding-top: 20px; border-top: 1px solid #eee; }
-        .btn { padding: 12px 20px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 11px; text-transform: uppercase; color: white; transition: 0.2s; min-width: 140px; }
-        .btn-hoje { background: #27ae60; } /* Verde */
-        .btn-ontem { background: #2980b9; } /* Azul */
-        .btn-m-turno { background: #e67e22; } /* Laranja */
-        .btn-m-apr { background: #8e44ad; } /* Roxo */
-        .btn-m-rdo { background: #c0392b; } /* Vermelho */
-        .btn-png { background: #2c3e50; width: 100%; margin-top: 15px; font-size: 14px; }
-        .btn:hover { opacity: 0.8; transform: translateY(-2px); }
-        .btn:disabled { background: #ccc; cursor: not-allowed; transform: none; }
-
-        /* Relatório Area */
-        .report-area { background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
-        .report-header { background: #00b7ab; color: white; padding: 30px; text-align: center; border-bottom: 8px solid #ffc107; }
-        .report-header h1 { font-size: 24px; letter-spacing: 1px; }
-        .report-body { padding: 30px; min-height: 500px; background: #fff; }
-        
-        /* Estilos dos Cards e Seções */
-        .section-title { margin: 25px 0 15px; padding: 12px; border-bottom: 2px solid #eee; display: flex; justify-content: space-between; font-weight: bold; color: #444; background: #f8f9fa; border-radius: 4px; font-size: 14px; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; }
-        .card { padding: 15px; border-radius: 6px; display: flex; justify-content: space-between; align-items: center; font-size: 12px; font-weight: bold; border: 1px solid #eee; transition: 0.3s; }
-        
-        /* Cores de Farol */
+        .status-txt { font-size: 11px; color: #888; margin-top: 5px; display: block; }
+        .btn-group { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; padding-top: 15px; border-top: 1px solid #eee; }
+        .btn { padding: 12px 18px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 12px; text-transform: uppercase; color: white; }
+        .btn-hoje { background: #27ae60; } 
+        .btn-rdo { background: #1565c0; } 
+        .btn-apr { background: #7b1fa2; }
+        .btn-turno { background: #d35400; }
+        .btn-ontem { background: #555; }
+        .btn-png { background: #333; margin-top: 10px; width: 100%; }
+        .report-area { background: white; border-radius: 4px; overflow: hidden; margin-top: 10px; }
+        .report-header { background: #00b7ab; color: white; padding: 25px; text-align: center; border-bottom: 6px solid #ffc107; }
+        .report-body { padding: 25px; min-height: 400px; }
+        .section-title { margin: 20px 0 10px; padding: 10px; border-bottom: 2px solid #eee; display: flex; justify-content: space-between; font-weight: bold; background: #f9f9f9; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 10px; }
+        .card { padding: 12px; border-radius: 5px; display: flex; justify-content: space-between; align-items: center; font-size: 11px; font-weight: bold; border: 1px solid #eee; }
         .bg-verde { background: #e8f5e9; border-left: 8px solid #2e7d32; color: #1b5e20; }
         .bg-laranja { background: #fff3e0; border-left: 8px solid #ef6c00; color: #e65100; }
         .bg-vermelho { background: #ffebee; border-left: 8px solid #c62828; color: #b71c1c; }
-        .bg-azul { background: #e3f2fd; border-left: 8px solid #1565c0; color: #0d47a1; }
-        .bg-roxo { background: #f3e5f5; border-left: 8px solid #7b1fa2; color: #4a148c; }
-        
-        .badge { padding: 5px 10px; border-radius: 4px; color: white; font-size: 10px; text-transform: uppercase; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .badge { padding: 4px 8px; border-radius: 4px; color: white; font-size: 9px; }
     </style>
 </head>
 <body>
@@ -58,221 +40,343 @@
 <div class="container">
     <div class="admin-panel">
         <div class="upload-row">
-            <div class="file-box">
-                <label class="file-label" for="fT">📂 PLANILHA TURNO</label>
-                <input type="file" id="fT" accept=".xlsx, .csv">
-                <span id="sT" class="status-txt">Aguardando arquivo...</span>
-            </div>
-            <div class="file-box">
-                <label class="file-label" for="fS" style="background: #1565c0;">📂 PLANILHA RDO</label>
-                <input type="file" id="fS" accept=".xlsx, .csv">
-                <span id="sS" class="status-txt">Aguardando arquivo...</span>
-            </div>
-            <div class="file-box">
-                <label class="file-label" for="fA" style="background: #7b1fa2;">📂 PLANILHA APR</label>
-                <input type="file" id="fA" accept=".xlsx, .csv">
-                <span id="sA" class="status-txt">Aguardando arquivo...</span>
-            </div>
+            <div><label class="file-label" for="fT">📂 TURNO (XLSX)</label><input type="file" id="fT"><span id="sT" class="status-txt">Pendente</span></div>
+            <div><label class="file-label" for="fS" style="background:#1565c0">📂 RDO / FATUR. (CSV/XLSX)</label><input type="file" id="fS"><span id="sS" class="status-txt">Pendente</span></div>
+            <div><label class="file-label" for="fA" style="background:#7b1fa2">📂 APR (XLSX)</label><input type="file" id="fA"><span id="sA" class="status-txt">Pendente</span></div>
         </div>
-        
         <div class="btn-group">
-            <button class="btn btn-hoje" onclick="processar('turno-hoje')">Turno Hoje</button>
+            <button class="btn btn-hoje" onclick="processar('hoje')">Turno Hoje</button>
             <button class="btn btn-ontem" onclick="processar('rdo-ontem')">RDO Ontem</button>
-            <button class="btn btn-ontem" style="background:#6a1b9a" onclick="processar('apr-ontem')">APR Ontem</button>
-            <button class="btn btn-m-turno" onclick="processar('mensal-turno')">📊 Turno Mensal</button>
-            <button class="btn btn-m-apr" onclick="processar('mensal-apr')">📝 APR Mensal</button>
-            <button class="btn btn-m-rdo" onclick="processar('mensal-rdo')">📑 RDO Mensal</button>
-            <button class="btn btn-png" id="btnPng" disabled onclick="baixarPNG()">📸 DESCARREGAR RELATÓRIO EM PNG</button>
+            <button class="btn btn-ontem" onclick="processar('apr-ontem')">APR Ontem</button>
+            <button class="btn btn-rdo" onclick="processar('mensal-rdo')">📑 RDO Mensal (CSV)</button>
+            <button class="btn btn-apr" onclick="processar('mensal-apr')">📝 APR Mensal</button>
+            <button class="btn btn-turno" onclick="processar('mensal-turno')">📊 Turno Mensal</button>
+            <button class="btn btn-png" id="btnPng" disabled onclick="baixarPNG()">📸 Baixar Foto PNG</button>
         </div>
     </div>
 
     <div class="report-area" id="printArea">
         <div class="report-header">
-            <h1 id="tituloRel">PAINEL DE INDICADORES OPERACIONAIS</h1>
-            <p>DATA: <span id="dataTxt">--/--/----</span> | GPM MARIUÁ</p>
+            <h1 id="tituloRel">SISTEMA DE GESTÃO GPM</h1>
+            <p>RELATÓRIO: <span id="dataTxt">--/--/----</span></p>
         </div>
         <div class="report-body" id="renderArea">
-            <div style="text-align:center; padding-top:100px;">
-                <img src="https://cdn-icons-png.flaticon.com/512/1243/1243420.png" width="80" style="opacity:0.2"><br><br>
-                <p style="color:#999; font-weight:bold;">Selecione os arquivos acima e clique em um indicador.</p>
-            </div>
+            <p style="text-align:center; color:#999; margin-top:100px;">Importe as planilhas para gerar os indicadores.</p>
         </div>
     </div>
 </div>
 
 <script>
-// Lista de Equipes Padronizada
 const EQUIPES = ["ALAN-IRC", "ALEX-IRC", "EDILSON-IRC", "EDMILSON-IRC", "ELIEZER-IRC", "ENES-IRC", "ESMERALDO-IRC", "FELIPE-IRC", "GABRIEL-IRC", "GIORLAN-IRC", "IRISMAR-IRC", "JAILSON-IRC", "JARBAS-IRC", "MARCOS-IRC", "MENEZES-IRC", "REVERTON-IRC", "RIAN-IRC", "ROMERO-IRC", "UBERDAN-IRC", "VANILSON-IRC", "WASHINGTON-IRC", "WESLEY-IRC", "WILIAN-IRC", "ANDRE-JAC", "CAIQUE-JAC", "CARLOS-JAC", "CLEBSON-JAC", "DIOGO-JAC", "DOUGLAS-JAC", "EMERSON-JAC", "FABIANO-JAC", "GERALDO-JAC", "JAILTON-JAC", "JAIR-JAC", "JOAO-JAC", "JULIO-JAC", "LUCIANO-JAC", "PATRICIO-JAC", "RODRIGO-JAC", "TIAGO-JAC", "VALMIR-JAC"].sort();
 
 let db = { turno: [], rdo: [], apr: [] };
 
-// Função de leitura de arquivos (Suporta Excel e CSV)
-function configurarLeitor(idInput, idStatus, chave) {
-    document.getElementById(idInput).onchange = e => {
+// LEITOR PARA XLSX E CSV (detecta separador automaticamente)
+function leitor(idIn, idSt, key) {
+    document.getElementById(idIn).onchange = e => {
         const file = e.target.files[0];
-        const reader = new FileReader();
-        reader.onload = ev => {
-            try {
+        const fileName = file.name.toLowerCase();
+        const isCSV = fileName.endsWith('.csv');
+
+        if (isCSV) {
+            // Lê CSV como texto para detectar separador
+            const reader = new FileReader();
+            reader.onload = ev => {
+                const text = ev.target.result;
+                // Detecta separador (ponto-e-vírgula ou vírgula)
+                const firstLine = text.split('\n')[0];
+                const separator = firstLine.includes(';') ? ';' : ',';
+                const workbook = XLSX.read(text, {type: 'string', FS: separator});
+                db[key] = XLSX.utils.sheet_to_json(workbook.Sheets[workbook.SheetNames[0]], { defval: "" });
+                console.log(`CSV carregado (${key}):`, db[key].length, 'linhas');
+                console.log('Colunas:', Object.keys(db[key][0] || {}));
+                document.getElementById(idSt).innerText = "✅ Pronto (" + db[key].length + " linhas)";
+                document.getElementById(idSt).style.color = "green";
+            };
+            reader.readAsText(file, 'UTF-8');
+        } else {
+            // Lê XLSX normalmente
+            const reader = new FileReader();
+            reader.onload = ev => {
                 const data = new Uint8Array(ev.target.result);
                 const workbook = XLSX.read(data, {type: 'array'});
-                const sheet = workbook.Sheets[workbook.SheetNames[0]];
-                db[chave] = XLSX.utils.sheet_to_json(sheet, { defval: "" });
-                document.getElementById(idStatus).innerText = "✅ Arquivo Carregado";
-                document.getElementById(idStatus).style.color = "#27ae60";
-            } catch (err) {
-                alert("Erro ao ler arquivo. Verifique se é um Excel ou CSV válido.");
-            }
-        };
-        reader.readAsArrayBuffer(file);
+                db[key] = XLSX.utils.sheet_to_json(workbook.Sheets[workbook.SheetNames[0]], { defval: "" });
+                console.log(`XLSX carregado (${key}):`, db[key].length, 'linhas');
+                document.getElementById(idSt).innerText = "✅ Pronto (" + db[key].length + " linhas)";
+                document.getElementById(idSt).style.color = "green";
+            };
+            reader.readAsArrayBuffer(file);
+        }
     };
 }
 
-configurarLeitor('fT', 'sT', 'turno');
-configurarLeitor('fS', 'sS', 'rdo');
-configurarLeitor('fA', 'sA', 'apr');
+leitor('fT', 'sT', 'turno'); leitor('fS', 'sS', 'rdo'); leitor('fA', 'sA', 'apr');
 
-// Função auxiliar para encontrar colunas (busca flexível)
-function buscarValor(obj, termos) {
-    for (let k in obj) {
-        let keyNormalized = k.toLowerCase().replace(/_/g, '').trim();
-        if (termos.some(t => keyNormalized.includes(t))) return String(obj[k]).trim();
+function extrairEquipe(row) {
+    // Prioriza des_equipe (nome) sobre cod_equipe (código numérico)
+    for(let k in row) {
+        let key = k.toLowerCase();
+        if(key.includes('des_equipe') || key === 'des_equipe' || key === 'equipe') {
+            return String(row[k]).toUpperCase().trim();
+        }
+    }
+    // Se não encontrou des_equipe, procura qualquer coluna com "equipe" que não seja código
+    for(let k in row) {
+        let key = k.toLowerCase();
+        if(key.includes('equipe') && !key.includes('cod')) {
+            return String(row[k]).toUpperCase().trim();
+        }
+    }
+    // Fallback: qualquer coluna com equipe
+    for(let k in row) {
+        if(k.toLowerCase().includes('equipe')) {
+            let val = String(row[k]).toUpperCase().trim();
+            // Se for texto (contém letras), retorna
+            if(/[A-Z]/.test(val)) return val;
+        }
+    }
+    return "";
+}
+
+function extrairData(row) {
+    for(let k in row) {
+        if(k.toLowerCase().includes('data')) {
+            return String(row[k]);
+        }
+    }
+    return "";
+}
+
+function extrairDataInicio(row) {
+    for(let k in row) {
+        let key = k.toLowerCase().replace(/_/g, '').trim();
+        if(key.includes('datainicio') || key.includes('inicio')) {
+            return String(row[k]);
+        }
     }
     return "";
 }
 
 function processar(modo) {
     const area = document.getElementById('renderArea');
-    const mesAtual = new Date().getMonth();
-    const anoAtual = new Date().getFullYear();
-    let html = "";
+    const hoje = new Date();
+    const ontem = new Date(); ontem.setDate(hoje.getDate() - 1);
+    const dHoje = hoje.toLocaleDateString('pt-BR');
+    const dOntem = ontem.toLocaleDateString('pt-BR');
+    const mesAtual = hoje.getMonth();
+    const anoAtual = hoje.getFullYear();
 
-    // 1. TURNO HOJE (Presença diária)
-    if (modo === 'turno-hoje') {
-        if(!db.turno.length) return alert("Carregue a planilha de TURNO!");
-        document.getElementById('tituloRel').innerText = "STATUS DE TURNO: HOJE";
+    let cont = {}; EQUIPES.forEach(e => cont[e] = 0);
+
+    // 1. TURNO HOJE - Lê TURNO HOJE.xlsx e mostra quem abriu e não abriu
+    if (modo === 'hoje') {
+        document.getElementById('tituloRel').innerText = "TURNO HOJE (" + dHoje + ")";
         let ativos = new Set();
-        db.turno.forEach(row => {
-            let eq = buscarValor(row, ['equipe', 'desequipe']);
-            if(EQUIPES.includes(eq.toUpperCase())) ativos.add(eq.toUpperCase());
+        db.turno.forEach(r => {
+            let eq = extrairEquipe(r);
+            if(EQUIPES.includes(eq)) ativos.add(eq);
         });
-        const listaAtivos = EQUIPES.filter(e => ativos.has(e));
-        const listaFalta = EQUIPES.filter(e => !ativos.has(e));
-        html = desenharSecao("✅ TURNOS ABERTOS", listaAtivos, "bg-verde", "ABERTO", "#2e7d32") +
-               desenharSecao("🟠 AGUARDANDO ABERTURA", listaFalta, "bg-laranja", "PENDENTE", "#ef6c00");
+        const ok = EQUIPES.filter(e => ativos.has(e));
+        const falta = EQUIPES.filter(e => !ativos.has(e));
+        area.innerHTML = desenhar("✅ ABRIU TURNO", ok, "bg-verde", "OK", "#2e7d32") +
+                         desenhar("🔴 NÃO ABRIU TURNO", falta, "bg-vermelho", "FALTA", "#c62828");
     }
 
-    // 2. RDO ONTEM (Cruzamento Turno x RDO)
+    // 2. RDO ONTEM - Compara turno com RDO: quem abriu turno e fez RDO, quem abriu mas não fez, quem nem abriu
     else if (modo === 'rdo-ontem') {
-        if(!db.turno.length || !db.rdo.length) return alert("Carregue TURNO e RDO!");
-        document.getElementById('tituloRel').innerText = "CONFORMIDADE RDO: ONTEM";
-        let ativosTurno = new Set();
-        let ativosRdo = new Set();
-        db.turno.forEach(row => { let e = buscarValor(row, ['equipe']); if(e) ativosTurno.add(e.toUpperCase()); });
-        db.rdo.forEach(row => { let e = buscarValor(row, ['equipe', 'codequipe']); if(e) ativosRdo.add(e.toUpperCase()); });
-        
-        const ok = EQUIPES.filter(e => ativosTurno.has(e) && ativosRdo.has(e));
-        const erro = EQUIPES.filter(e => ativosTurno.has(e) && !ativosRdo.has(e));
-        html = desenharSecao("✅ RDO LANÇADO", ok, "bg-verde", "OK", "#2e7d32") +
-               desenharSecao("🔴 FALTA LANÇAR RDO", erro, "bg-vermelho", "PENDENTE", "#c62828");
+        document.getElementById('tituloRel').innerText = `RDO ONTEM (${dOntem})`;
+
+        let turnoSet = new Set();
+        let rdoSet = new Set();
+
+        // Equipes que abriram turno (da planilha TURNO)
+        db.turno.forEach(r => {
+            let eq = extrairEquipe(r);
+            if(EQUIPES.includes(eq)) turnoSet.add(eq);
+        });
+
+        // Equipes que fizeram RDO (da planilha RDO)
+        db.rdo.forEach(r => {
+            let eq = extrairEquipe(r);
+            if(EQUIPES.includes(eq)) rdoSet.add(eq);
+        });
+
+        const abriuEFezRdo = EQUIPES.filter(e => turnoSet.has(e) && rdoSet.has(e));
+        const abriuMasNaoFezRdo = EQUIPES.filter(e => turnoSet.has(e) && !rdoSet.has(e));
+        const naoAbriuTurno = EQUIPES.filter(e => !turnoSet.has(e));
+
+        area.innerHTML = desenhar("✅ ABRIU TURNO + FEZ RDO", abriuEFezRdo, "bg-verde", "OK", "#2e7d32") +
+                         desenhar("🔴 ABRIU TURNO + SEM RDO", abriuMasNaoFezRdo, "bg-vermelho", "PENDENTE", "#c62828") +
+                         desenhar("⚠️ NÃO ABRIU TURNO", naoAbriuTurno, "bg-laranja", "S/ TURNO", "#ef6c00");
     }
 
-    // 3. APR ONTEM (Cruzamento Turno x APR)
+    // 3. APR ONTEM - Compara turno com RDO e APR
     else if (modo === 'apr-ontem') {
-        if(!db.turno.length || !db.apr.length) return alert("Carregue TURNO e APR!");
-        document.getElementById('tituloRel').innerText = "CONFORMIDADE APR: ONTEM";
-        let ativosTurno = new Set();
-        let ativosApr = new Set();
-        db.turno.forEach(row => { let e = buscarValor(row, ['equipe']); if(e) ativosTurno.add(e.toUpperCase()); });
-        db.apr.forEach(row => { let e = buscarValor(row, ['equipe']); if(e) ativosApr.add(e.toUpperCase()); });
-        
-        const ok = EQUIPES.filter(e => ativosTurno.has(e) && ativosApr.has(e));
-        const erro = EQUIPES.filter(e => ativosTurno.has(e) && !ativosApr.has(e));
-        html = desenharSecao("✅ APR ENVIADA", ok, "bg-verde", "OK", "#2e7d32") +
-               desenharSecao("🟣 FALTA ENVIAR APR", erro, "bg-roxo", "PENDENTE", "#7b1fa2");
+        document.getElementById('tituloRel').innerText = `APR ONTEM (${dOntem})`;
+
+        let turnoSet = new Set();
+        let rdoSet = new Set();
+        let aprSet = new Set();
+
+        // Equipes que abriram turno
+        db.turno.forEach(r => {
+            let eq = extrairEquipe(r);
+            if(EQUIPES.includes(eq)) turnoSet.add(eq);
+        });
+
+        // Equipes que fizeram RDO
+        db.rdo.forEach(r => {
+            let eq = extrairEquipe(r);
+            if(EQUIPES.includes(eq)) rdoSet.add(eq);
+        });
+
+        // Equipes que fizeram APR
+        db.apr.forEach(r => {
+            let eq = extrairEquipe(r);
+            if(EQUIPES.includes(eq)) aprSet.add(eq);
+        });
+
+        const fezRdoEApr = EQUIPES.filter(e => rdoSet.has(e) && aprSet.has(e));
+        const fezRdoSemApr = EQUIPES.filter(e => rdoSet.has(e) && !aprSet.has(e));
+        const naoAbriuTurno = EQUIPES.filter(e => !turnoSet.has(e));
+
+        area.innerHTML = desenhar("✅ FEZ RDO + APR", fezRdoEApr, "bg-verde", "OK", "#2e7d32") +
+                         desenhar("🔴 FEZ RDO SEM APR", fezRdoSemApr, "bg-vermelho", "S/ APR", "#c62828") +
+                         desenhar("⚠️ NÃO ABRIU TURNO", naoAbriuTurno, "bg-laranja", "S/ TURNO", "#ef6c00");
     }
 
-    // 4. MENSAL TURNO (Contagem de dias únicos)
+    // 4. TURNO MENSAL - Conta dias únicos que cada equipe abriu turno (2 no mesmo dia = 1)
     else if (modo === 'mensal-turno') {
-        document.getElementById('tituloRel').innerText = "MENSAL: DIAS TRABALHADOS (TURNO)";
-        let diasEq = {}; EQUIPES.forEach(e => diasEq[e] = new Set());
-        db.turno.forEach(row => {
-            let eq = buscarValor(row, ['equipe']).toUpperCase();
-            let dt = buscarValor(row, ['data', 'inicio']);
+        document.getElementById('tituloRel').innerText = "TURNO MENSAL - DIAS TRABALHADOS";
+
+        let diasPorEquipe = {};
+        EQUIPES.forEach(e => diasPorEquipe[e] = new Set());
+
+        db.turno.forEach(r => {
+            let eq = extrairEquipe(r);
+            let dt = extrairData(r);
             if(EQUIPES.includes(eq) && dt) {
-                let p = dt.split(' ')[0].split('/');
-                if(p.length === 3) {
-                    let d = new Date(p[2], p[1]-1, p[0]);
-                    if(d.getMonth() === mesAtual) diasEq[eq].add(dt.split(' ')[0]);
+                const partes = dt.split(' ')[0].split('/');
+                if(partes.length === 3) {
+                    const dia = partes[0];
+                    const mes = parseInt(partes[1]) - 1;
+                    const ano = partes[2].length === 2 ? 2000 + parseInt(partes[2]) : parseInt(partes[2]);
+                    if(mes === mesAtual && ano === anoAtual) {
+                        diasPorEquipe[eq].add(partes[0] + '/' + partes[1]);
+                    }
                 }
             }
         });
-        const dados = EQUIPES.map(e => [e, diasEq[e].size]).sort((a,b) => b[1] - a[1]);
-        html = desenharMensal("RANKING DE PRESENÇA NO MÊS", dados, "DIAS", "turno");
+
+        EQUIPES.forEach(e => cont[e] = diasPorEquipe[e].size);
+        renderRanking(cont, "DIAS", "turno");
     }
 
-    // 5. MENSAL APR (Soma total independente do dia)
-    else if (modo === 'mensal-apr') {
-        document.getElementById('tituloRel').innerText = "MENSAL: VOLUME DE APRs ENVIADAS";
-        let totalApr = {}; EQUIPES.forEach(e => totalApr[e] = 0);
-        db.apr.forEach(row => {
-            let eq = buscarValor(row, ['equipe']).toUpperCase();
-            let dt = buscarValor(row, ['data', 'cadastro']);
-            if(EQUIPES.includes(eq) && dt) {
-                let p = dt.split(' ')[0].split('/');
-                if(p.length === 3 && new Date(p[2], p[1]-1, p[0]).getMonth() === mesAtual) totalApr[eq]++;
-            }
-        });
-        const dados = EQUIPES.map(e => [e, totalApr[e]]).sort((a,b) => b[1] - a[1]);
-        html = desenharMensal("TOTAL DE APRs ACUMULADAS", dados, "APRs", "apr");
-    }
-
-    // 6. MENSAL RDO (Soma total com filtro 07:30)
+    // 5. RDO MENSAL - CSV, conta cod_serv únicos por equipe
+    // Ignora linhas onde data_inicio seja 07:00 ou 07:30
     else if (modo === 'mensal-rdo') {
-        document.getElementById('tituloRel').innerText = "MENSAL: VOLUME DE RDOs (PRODUÇÃO)";
-        let totalRdo = {}; EQUIPES.forEach(e => totalRdo[e] = 0);
+        document.getElementById('tituloRel').innerText = "RDO MENSAL (BASE FATURAMENTO)";
+
+        // Função para verificar se hora é 07:00 ou 07:30
+        function isHora0700ou0730(dataInicio) {
+            if(!dataInicio) return false;
+            let str = String(dataInicio);
+
+            // Formato texto: "14/01/2026 07:30"
+            if(str.includes(" 07:30") || str.includes(" 07:00")) return true;
+
+            // Formato serial Excel: número como "46143.31217592592"
+            let num = parseFloat(str);
+            if(!isNaN(num) && num > 40000) { // É um número serial do Excel
+                let parteDecimal = num - Math.floor(num);
+                // 07:00 = 7/24 = 0.291666...
+                // 07:30 = 7.5/24 = 0.3125
+                // Tolerância de 1 minuto = 1/(24*60) = 0.000694
+                if(Math.abs(parteDecimal - 0.291666) < 0.001 || Math.abs(parteDecimal - 0.3125) < 0.001) {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        // Set para armazenar cod_serv únicos por equipe
+        let servicosPorEquipe = {};
+        EQUIPES.forEach(e => servicosPorEquipe[e] = new Set());
+
         db.rdo.forEach(row => {
-            let eq = buscarValor(row, ['equipe', 'codequipe']).toUpperCase();
-            let dt = buscarValor(row, ['datainicio', 'inicio']);
-            if(EQUIPES.includes(eq) && dt) {
-                if(dt.includes("07:30")) return; // FILTRO 07:30
-                let p = dt.split(' ')[0].split('/');
-                if(p.length === 3 && new Date(p[2], p[1]-1, p[0]).getMonth() === mesAtual) totalRdo[eq]++;
+            let eq = extrairEquipe(row);
+            let dataInicio = row['data_inicio'];
+            let codServ = String(row['cod_serv'] || '');
+
+            if(EQUIPES.includes(eq) && codServ) {
+                // Ignora se hora é 07:00 ou 07:30 (em qualquer formato)
+                if(isHora0700ou0730(dataInicio)) return;
+
+                // Adiciona cod_serv ao Set da equipe (evita duplicatas)
+                servicosPorEquipe[eq].add(codServ);
             }
         });
-        const dados = EQUIPES.map(e => [e, totalRdo[e]]).sort((a,b) => b[1] - a[1]);
-        html = desenharMensal("TOTAL DE RDOs (EXCLUINDO HORA MORTA)", dados, "RDOs", "apr");
+
+        // Conta quantidade de serviços únicos por equipe
+        EQUIPES.forEach(e => cont[e] = servicosPorEquipe[e].size);
+
+        console.log("Serviços únicos por equipe:", cont);
+        console.log("JAILSON-IRC:", cont['JAILSON-IRC']);
+        renderRanking(cont, "RDOs", "rdo");
     }
 
-    area.innerHTML = html;
-    document.getElementById('dataTxt').innerText = new Date().toLocaleDateString();
+    // 6. APR MENSAL - Conta todos os registros mesmo que múltiplos no dia
+    else if (modo === 'mensal-apr') {
+        document.getElementById('tituloRel').innerText = "APR MENSAL - TOTAL PREENCHIDO";
+
+        db.apr.forEach(r => {
+            let eq = extrairEquipe(r);
+            let dt = extrairData(r);
+            if(EQUIPES.includes(eq) && dt) {
+                const partes = dt.split(' ')[0].split('/');
+                if(partes.length === 3) {
+                    const mes = parseInt(partes[1]) - 1;
+                    const ano = partes[2].length === 2 ? 2000 + parseInt(partes[2]) : parseInt(partes[2]);
+                    if(mes === mesAtual && ano === anoAtual) {
+                        cont[eq]++;
+                    }
+                }
+            }
+        });
+        renderRanking(cont, "APRs", "apr");
+    }
+
+    document.getElementById('dataTxt').innerText = dHoje;
     document.getElementById('btnPng').disabled = false;
 }
 
-function desenharSecao(titulo, lista, corClasse, badgeTxt, badgeCor) {
-    if(!lista.length) return "";
-    const cards = lista.map(nome => `<div class="card ${corClasse}"><span>${nome}</span><span class="badge" style="background:${badgeCor}">${badgeTxt}</span></div>`).join('');
-    return `<div class="section-title"><span>${titulo}</span> <span>${lista.length}</span></div><div class="grid">${cards}</div>`;
+function renderRanking(dados, suf, tipo) {
+    const lista = EQUIPES.map(e => [e, dados[e]]).sort((a,b) => b[1] - a[1]);
+    let html = `<div class="grid">`;
+    lista.forEach(([eq, q]) => {
+        let cor = "bg-verde"; let bC = "#2e7d32";
+        if(tipo === 'apr') {
+            if(q < 3) { cor = "bg-vermelho"; bC = "#c62828"; }
+            else if(q < 10) { cor = "bg-laranja"; bC = "#ef6c00"; }
+        } else {
+            if(q <= 10) { cor = "bg-vermelho"; bC = "#c62828"; }
+            else if(q <= 15) { cor = "bg-laranja"; bC = "#ef6c00"; }
+        }
+        html += `<div class="card ${cor}"><span>${eq}</span><span class="badge" style="background:${bC}">${q} ${suf}</span></div>`;
+    });
+    document.getElementById('renderArea').innerHTML = html + "</div>";
 }
 
-function desenharMensal(titulo, dados, sufixo, tipo) {
-    const cards = dados.map(([eq, qtd]) => {
-        let cor = "bg-verde"; let bCol = "#2e7d32";
-        if(tipo === 'apr') { // Lógica APR/RDO: <3 Vermelho, <10 Laranja
-            if(qtd < 3) { cor = "bg-vermelho"; bCol = "#c62828"; }
-            else if(qtd < 10) { cor = "bg-laranja"; bCol = "#ef6c00"; }
-        } else { // Lógica Turno: <=10 Vermelho, <=15 Laranja
-            if(qtd <= 10) { cor = "bg-vermelho"; bCol = "#c62828"; }
-            else if(qtd <= 15) { cor = "bg-laranja"; bCol = "#ef6c00"; }
-        }
-        return `<div class="card ${cor}"><span>${eq}</span><span class="badge" style="background:${bCol}">${qtd} ${sufixo}</span></div>`;
-    }).join('');
-    return `<div class="section-title"><span>${titulo}</span> <span>${dados.length} EQUIPES</span></div><div class="grid">${cards}</div>`;
+function desenhar(t, l, c, b, cor) {
+    const cards = l.map(n => `<div class="card ${c}"><span>${n}</span><span class="badge" style="background:${cor}">${b}</span></div>`).join('');
+    return `<div class="section-title"><span>${t}</span> <span>${l.length}</span></div><div class="grid">${cards}</div>`;
 }
 
 function baixarPNG() {
-    html2canvas(document.getElementById('printArea'), { scale: 2 }).then(canvas => {
+    html2canvas(document.getElementById('printArea')).then(canvas => {
         const link = document.createElement('a');
-        link.download = `RELATORIO_OPERACIONAL_${new Date().getTime()}.png`;
+        link.download = 'relatorio_gpm.png';
         link.href = canvas.toDataURL();
         link.click();
     });
