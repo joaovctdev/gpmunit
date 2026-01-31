@@ -247,7 +247,7 @@ function processar(modo) {
 
     // 4. TURNO MENSAL - Conta dias únicos que cada equipe abriu turno (2 no mesmo dia = 1)
     else if (modo === 'mensal-turno') {
-        document.getElementById('tituloRel').innerText = "TURNO MENSAL - DIAS TRABALHADOS";
+        document.getElementById('tituloRel').innerText = "TURNOS ABERTOS NO JUPITER - MENSAL";
 
         let diasPorEquipe = {};
         EQUIPES.forEach(e => diasPorEquipe[e] = new Set());
@@ -275,7 +275,7 @@ function processar(modo) {
     // 5. RDO MENSAL - CSV, conta cod_serv únicos por equipe
     // Ignora linhas onde data_inicio seja 07:00 ou 07:30
     else if (modo === 'mensal-rdo') {
-        document.getElementById('tituloRel').innerText = "RDO MENSAL (BASE FATURAMENTO)";
+        document.getElementById('tituloRel').innerText = "RDO REALIZADO NO JUPITER - MENSAL";
 
         // Função para verificar se hora é 07:00 ou 07:30
         function isHora0700ou0730(dataInicio) {
@@ -328,7 +328,7 @@ function processar(modo) {
 
     // 6. APR MENSAL - Conta todos os registros mesmo que múltiplos no dia
     else if (modo === 'mensal-apr') {
-        document.getElementById('tituloRel').innerText = "APR MENSAL - TOTAL PREENCHIDO";
+        document.getElementById('tituloRel').innerText = "APR ENVIADAS NO JUPITER - MENSAL";
 
         db.apr.forEach(r => {
             let eq = extrairEquipe(r);
